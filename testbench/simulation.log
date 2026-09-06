@@ -1,0 +1,29 @@
+==========================================================
+  DARRANT-V1: FULL SYSTEM INTEGRATION & SMOKE TEST        
+  Target: 47 Instructions (ALU, LSU, Branch, MUL, CRC)    
+==========================================================
+==========================================================
+               TAPE-OUT SIGN-OFF REPORT                   
+==========================================================
+[1] LOAD/STORE UNIT (SURGICAL MEMORY MASKING)
+    LW/SH/SB : x22 = 112299d2 (Expected: 112299d2 - Perfect Masking)
+
+[2] HARDWARE ACCELERATORS (CO-PROCESSORS)
+    MULHSU   : x23 = fffffffe (Expected: fffffffe - Sign/Zero Ext Safe)
+    CRC32    : x24 = 04c11db7 (Expected: 04c11db7 - Hardware Poly Match)
+
+[3] CONTROL FLOW & PIPELINE (BRANCH PREDICTION)
+    TRAP REG : PASSED (x31 = 0, No rogue branches taken)
+
+[4] ALU EXHAUSTIVE STRESS TEST (ARITHMETIC & LOGIC)
+    SUB      : x4  = 00000019 (Expected: 00000019)
+    XOR      : x9  = fffffff9 (Expected: fffffff9)
+    SRA      : x15 = fffffffd (Expected: fffffffd)
+
+[5] SYSTEM STATE (BARE-METAL HALT)
+    ECALL FSM: 1011 (Expected: 1011 -> Halted safely)
+==========================================================
+  [SUCCESS] ALL 47 INSTRUCTIONS & IP CORES VERIFIED.      
+            DARRANT-V1 CORE IS READY FOR FABRICATION!     
+==========================================================
+/var/www/html/beta/v1/editor/efs-users/2063/w/design/testbench/testbench.v:66: $finish called at 4015000 (1ps)
