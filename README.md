@@ -1,6 +1,6 @@
 # 🚀 Darrant-V1: 32-bit RISC-V Multi-Cycle Processor Core
 
-Hello! I'm **Darrant**, an Electrical and Electronic Engineering undergraduate at Universiti Malaya. Welcome to the repository of **Darrant-riscv-multicycle-core**! 
+Hello! I'm **Darrant**, an Electrical and Electronic Engineering undergraduate at Universiti Malaya. Welcome to the repository of **Darrant-V1**! 
 
 This project is not just another textbook CPU. It is the result of countless hours of designing, simulating, tearing down Verilog state machines, and chasing elusive timing bugs. I built this 32-bit RISC-V multi-cycle processor core from the ground up to deeply understand computer architecture, data paths, and hardware verification.
 
@@ -18,15 +18,19 @@ I designed this core to be robust, precise, and highly capable, achieving a **10
 
 ## 🛠️ Exhaustive Verification
 
-Writing the RTL was only half the battle. To ensure industrial-grade robustness, I wrote extreme testbenches ("Obstacle Courses") to stress-test the core:
+Writing the RTL was only half the battle. To ensure industrial-grade robustness, I utilized a strict verification methodology:
+
+*   **Bottom-Up Unit Testing**: Before full-system integration, every core module (ALU, LSU, MUL, CRC, Control Unit) was individually verified using dedicated unit testbenches to ensure isolated IP stability.
 *   **Control Flow Traps**: Passed 6 consecutive conditional branches and 2 jumps with hidden trap instructions. The trap register (`x31`) remained `0`.
 *   **Memory Masking**: Verified surgical writes by overriding specific bytes in a 32-bit word without corrupting adjacent data.
-*   **Full ISA Sweep**: All 47 instructions (R-Type, I-Type, S-Type, B-Type, U-Type, J-Type, System/Halt) have been verified against manually calculated hex expected values.
+*   **Full ISA Sweep**: All 47 instructions (R-Type, I-Type, S-Type, B-Type, U-Type, J-Type, System/Halt) have been verified against manually calculated hex expected values in a single Tape-out Sign-off testbench.
 
 ## 📁 Repository Structure
 
-*   `design/hdl.v` - The complete top-level Verilog netlist, containing the ALU, LSU, Co-processors, Control Unit, and Registers.
-*   `testbench/testbench.v` - The final rigorous testbench environment used for tape-out sign-off.
+*   `design/hdl.v` - The complete top-level Verilog netlist, containing the fully wired CPU system.
+*   `testbench/testbench.v` - The final rigorous integration testbench used for tape-out sign-off.
+*   `rtl/` - Contains the individual isolated Verilog modules (ALU, LSU, MUL, CRC, Control Unit, Register File).
+*   `unit_tests/` - Dedicated block-level testbenches for validating individual IP cores prior to system integration.
 
 ## 🤝 Let's Connect
 Building this processor was an incredible journey that solidified my passion for digital IC design and hardware architecture. I'm always open to discussing tech, hardware optimization, or collaborating on cool projects. 
